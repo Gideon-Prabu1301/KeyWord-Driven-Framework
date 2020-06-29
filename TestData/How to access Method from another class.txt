@@ -1,0 +1,91 @@
+column starts from
+
+4th column>>>0+3
+
+row starts from
+0+1
+
+
+what to do access method from Base Class;
+
+1. First create one reference in class level;
+public Base base;//here it will ask to import from Base, just import
+2. Create one object for the base:
+base =new Base();
+3. Now we can access the method from Base Class
+base.
+
+
+
+Practical Exercise:
+
+1. Here, we are comparing the db status 'artStatus' from the Class "SeleniumDataBase" with the variable 'newStatus' in the class "NewClassJDBC"
+2. Need to give two return inside the while loop 1, and at the end of method 'NewClassJDBC'
+3. Need to change void to "String"
+4. Need to create instance and object for Class. Ex:	public SeleniumDataBase fromJDBC=new SeleniumDataBase();
+5. Then create String variable to access another class method. Ex: String dbstatus=fromJDBC.conJdbc();
+
+package dataBase;
+
+package dataBase;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.testng.annotations.Test;
+
+public class SeleniumDataBase {
+	
+	public String stattus; 
+	
+	/*@Test*/
+	public String conJdbc() throws ClassNotFoundException, SQLException 
+	{
+		Class.forName("com.mysql.jdbc.Driver");
+		System.out.println("Driver Loaded");
+		
+		Connection con=DriverManager.getConnection("jdbc:mysql://tvmtestdb.tnq.co.in:3306/djsgraphics_workflow_nimbleuat", "djsworkflowuser", "djsworkflowuser");
+		System.out.println("Connected to tvmtestdb");
+		
+		Statement smt=con.createStatement();
+		ResultSet rs=smt.executeQuery("SELECT * FROM `artflow` WHERE `id` ='1227433'");
+		
+		while(rs.next()) {
+		String artStatus= rs.getString("ArtStatus");
+		System.out.println("ArtStatus from DB is:  "+artStatus);
+		return artStatus;//default
+		}
+		return null;//default
+	}
+}
+---------------------------------------------------------------------------------------------------------------
+package dataBase;
+
+import java.sql.SQLException;
+
+import org.testng.annotations.Test;
+
+public class NewClassJDBC {
+
+	public String newStatus;
+	public SeleniumDataBase fromJDBC=new SeleniumDataBase();
+			
+			@Test
+			public void compareStauts() throws ClassNotFoundException, SQLException 
+			{
+				newStatus="Waiting for FTXML";
+				String dbstatus=fromJDBC.conJdbc();
+				System.out.println("dbstatus is: "+dbstatus);
+					if(newStatus.equals(dbstatus)) 
+					{
+						System.out.println("DB status is Same");
+					}
+					else 
+					{
+						System.out.println("Failed");
+					}
+			}
+			}
