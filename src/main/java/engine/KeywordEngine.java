@@ -133,6 +133,35 @@ public class KeywordEngine {
 						element.click();
 						Thread.sleep(3000);
 					}
+/*					else if(action.equalsIgnoreCase("click")) 
+					{
+						element.click();
+						Thread.sleep(3000);
+					}
+*/					locatorType=null;
+					break;
+					
+				case "xpath":
+					element=driver.findElement(By.xpath(locatorValue));
+					
+					if(action.equalsIgnoreCase("click")) 
+					{
+						/*element.clear();*/
+						element.click();
+						Thread.sleep(3000);
+					}
+					else if(action.equalsIgnoreCase("sendKeys")) 
+					{
+						element.clear();
+						element.sendKeys(value);
+						Thread.sleep(3000);
+					}
+					/*else if(action.equalsIgnoreCase("click")) 
+					{
+						element.clear();
+						element.click();
+						Thread.sleep(3000);
+					}*/
 					locatorType=null;
 					break;
 					
